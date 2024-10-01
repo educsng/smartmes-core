@@ -1,5 +1,6 @@
 package com.smartmes.maintenance.dto;
 
+import com.smartmes.maintenance.enumeration.MaintenanceOrderType;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,15 +13,18 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MaintenanceOrderIncidentRequestDto {
+public class MaintenanceOrderRequestDto {
+
+    private Long orderId;
 
     @NotBlank
     @Max(value = 500, message = "O campo reason deve ter no maximo 500 caracteres")
     private String reason;
 
-    @NotBlank(message = "O campo manufactureOrderNumber é obrigatório")
-    private Long manufactureOrderNumber;
-
     @NotNull(message = "O campo equipmentId é obrigatório")
     private Long equipmentId;
+
+    @NotNull(message = "O campo type é obrigatório")
+    private MaintenanceOrderType type;
+
 }
