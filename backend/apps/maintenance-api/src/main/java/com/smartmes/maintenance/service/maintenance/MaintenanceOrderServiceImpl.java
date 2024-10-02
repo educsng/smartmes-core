@@ -1,9 +1,8 @@
 package com.smartmes.maintenance.service.maintenance;
 
-import com.smartmes.maintenance.domain.Employee;
-import com.smartmes.maintenance.domain.Equipment;
-import com.smartmes.maintenance.domain.MaintenanceOrder;
-import com.smartmes.maintenance.domain.MaintenanceOrderItem;
+import com.smartmes.maintenance.domain.equipment.Equipment;
+import com.smartmes.maintenance.domain.order.MaintenanceOrder;
+import com.smartmes.maintenance.domain.order.MaintenanceOrderItem;
 import com.smartmes.maintenance.dto.MaintenanceOrderCreationRequestDto;
 import com.smartmes.maintenance.dto.MaintenanceOrderCreationResponseDto;
 import com.smartmes.maintenance.dto.MaintenanceOrderIncidentRequestDto;
@@ -11,8 +10,8 @@ import com.smartmes.maintenance.dto.MaintenanceOrderResponseDto;
 import com.smartmes.maintenance.dto.MaintenanceOrderUpdateRequestDto;
 import com.smartmes.maintenance.mapper.MaintenanceOrderMapper;
 import com.smartmes.maintenance.publisher.IncidentPublisher;
+import com.smartmes.maintenance.repository.MaintenanceOrderItemRepository;
 import com.smartmes.maintenance.repository.MaintenanceOrderRepository;
-import com.smartmes.maintenance.service.employee.EmployeeService;
 import com.smartmes.maintenance.service.equipment.EquipmentService;
 import com.smartmes.maintenance.validator.MaintenanceOrderValidator;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +34,7 @@ public class MaintenanceOrderServiceImpl implements MaintenanceOrderService {
     private final MaintenanceOrderValidator maintenanceOrderValidator;
     private final IncidentPublisher incidentPublisher;
     private final EquipmentService equipmentService;
-    private final EmployeeService employeeService;
+    private final MaintenanceOrderItemRepository maintenanceOrderItemRepository;
 
     @Override
     public Page<MaintenanceOrderResponseDto> getOrders(PageRequest pageRequest) {
@@ -53,13 +52,16 @@ public class MaintenanceOrderServiceImpl implements MaintenanceOrderService {
     }
 
     @Override
+    @Transactional
     public void updateMaintenanceOrder(Long orderId, MaintenanceOrderUpdateRequestDto requestDto) {
         MaintenanceOrder maintenanceOrder = this.mustFindById(orderId);
+        maintenanceOrderValidator.validateOrderStatus(maintenanceOrder);
         List<MaintenanceOrderItem> orderItems = maintenanceOrderMapper.toMaintenanceOrderItems(requestDto.getItems(), maintenanceOrder);
+        var savedItems = maintenanceOrderItemRepository.saveAllAndFlush(orderItems);
 
         maintenanceOrder.setFinishedAt(getFinishedAt(maintenanceOrder));
         maintenanceOrder.setOrderStatus(requestDto.getOrderStatus());
-        maintenanceOrder.setItems(orderItems);
+        maintenanceOrder.setItems(savedItems);
         maintenanceOrderRepository.save(maintenanceOrder);
     }
 
@@ -71,7 +73,7 @@ public class MaintenanceOrderServiceImpl implements MaintenanceOrderService {
         final Equipment equipment = equipmentService.mustFindById(requestDto.getEquipmentId());
         MaintenanceOrder maintenanceOrder = maintenanceOrderMapper.toMaintenanceOrder(requestDto, equipment);
 
-        return maintenanceOrderMapper.toMaintenanceOrderCreationResponseDto(maintenanceOrder);
+        return maintenanceOrderMapper.toMaintenanceOrderCreationResponseDto(maintenanceOrderRepository.saveAndFlush(maintenanceOrder));
     }
 
     private MaintenanceOrder mustFindById(Long id) {

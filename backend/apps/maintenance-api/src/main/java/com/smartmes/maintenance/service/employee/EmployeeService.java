@@ -1,8 +1,13 @@
 package com.smartmes.maintenance.service.employee;
 
-import com.smartmes.maintenance.domain.Employee;
+import com.smartmes.maintenance.domain.employee.Technician;
+import com.smartmes.maintenance.dto.TechnicianResponseDto;
+
+import java.util.List;
 
 public interface EmployeeService {
 
-    Employee mustFindById(Long employeeId);
+    Technician mustFindTechnicianById(Long employeeId);
+
+    List<TechnicianResponseDto> findAllTechnicians();
 }

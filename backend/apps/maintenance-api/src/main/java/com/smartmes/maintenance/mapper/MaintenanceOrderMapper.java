@@ -1,8 +1,8 @@
 package com.smartmes.maintenance.mapper;
 
-import com.smartmes.maintenance.domain.Equipment;
-import com.smartmes.maintenance.domain.MaintenanceOrder;
-import com.smartmes.maintenance.domain.MaintenanceOrderItem;
+import com.smartmes.maintenance.domain.equipment.Equipment;
+import com.smartmes.maintenance.domain.order.MaintenanceOrder;
+import com.smartmes.maintenance.domain.order.MaintenanceOrderItem;
 import com.smartmes.maintenance.dto.MaintenanceOrderCreationRequestDto;
 import com.smartmes.maintenance.dto.MaintenanceOrderCreationResponseDto;
 import com.smartmes.maintenance.dto.MaintenanceOrderIncidentRequestDto;
@@ -80,7 +80,7 @@ public class MaintenanceOrderMapper {
     private MaintenanceOrderItem toMaintenanceOrderItem(MaintenanceOrderItemRequestDto maintenanceOrderItemRequestDto, MaintenanceOrder maintenanceOrder) {
         return MaintenanceOrderItem.builder()
             .description(maintenanceOrderItemRequestDto.getDescription())
-            .employee(employeeService.mustFindById(maintenanceOrderItemRequestDto.getEmployeeId()))
+            .employee(employeeService.mustFindTechnicianById(maintenanceOrderItemRequestDto.getEmployeeId()))
             .startedAt(LocalDateTime.now())
             .shift(maintenanceOrderItemRequestDto.getShift())
             .maintenanceOrder(maintenanceOrder)

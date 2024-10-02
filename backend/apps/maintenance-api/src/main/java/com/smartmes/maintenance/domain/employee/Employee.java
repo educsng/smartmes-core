@@ -10,13 +10,17 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Entity
 @Data
 @SuperBuilder
 @Table(name = "employees")
+@AllArgsConstructor
+@NoArgsConstructor
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "employee_type", discriminatorType = DiscriminatorType.STRING)
 public abstract class Employee {
@@ -36,7 +40,5 @@ public abstract class Employee {
 
     @NotBlank
     private String address;
-
-    private String employeeType;
 
 }

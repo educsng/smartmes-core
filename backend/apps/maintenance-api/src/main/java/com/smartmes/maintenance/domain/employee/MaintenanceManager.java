@@ -12,4 +12,8 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @DiscriminatorValue("MaintenanceManager")
 public class MaintenanceManager extends Employee {
+
+    public MaintenanceManager() {
+        super();
+    }
 }

@@ -4,7 +4,6 @@ import com.smartmes.maintenance.enumeration.MaintenanceOrderType;
 import com.smartmes.maintenance.enumeration.MaintenancePriority;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -19,13 +18,11 @@ import lombok.NoArgsConstructor;
 public class MaintenanceOrderCreationRequestDto {
 
     @NotBlank
-    @Max(value = 500, message = "O campo reason deve ter no maximo 500 caracteres")
     private String reason;
 
     @NotNull
     private Long equipmentId;
 
-    @NotNull
     private Long employeeId;
 
     @NotNull

@@ -1,6 +1,6 @@
 package com.smartmes.maintenance.service.equipment;
 
-import com.smartmes.maintenance.domain.Equipment;
+import com.smartmes.maintenance.domain.equipment.Equipment;
 import com.smartmes.maintenance.repository.EquipmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
