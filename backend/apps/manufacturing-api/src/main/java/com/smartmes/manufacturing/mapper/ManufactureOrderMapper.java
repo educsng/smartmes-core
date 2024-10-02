@@ -1,9 +1,9 @@
 package com.smartmes.manufacturing.mapper;
 
-import com.smartmes.manufacturing.domain.Employee;
 import com.smartmes.manufacturing.domain.Equipment;
 import com.smartmes.manufacturing.domain.ManufactureOrder;
 import com.smartmes.manufacturing.domain.ManufactureOrderItem;
+import com.smartmes.manufacturing.domain.employee.Operator;
 import com.smartmes.manufacturing.dto.ManufactureOrderItemRequestDto;
 import com.smartmes.manufacturing.dto.ManufactureOrderRequestDto;
 import com.smartmes.manufacturing.dto.ManufactureOrderResponseDto;
@@ -49,10 +49,10 @@ public class ManufactureOrderMapper {
             .toList();
     }
 
-    private static Employee getLoggedEmployee() {
+    private static Operator getLoggedEmployee() {
         // Not implemented
         // Should return the logged user
-        return Employee.builder().id(1L).name("John Doe").email("john@doe.com").phoneNumber("999999999").address("Test address").build();
+        return Operator.builder().id(1L).name("John Doe").email("john@doe.com").phoneNumber("999999999").address("Test address").build();
     }
 
     private ManufactureOrderResponseDto.ManufactureOrderResponse getManufactureOrder(ManufactureOrder manufactureOrder) {

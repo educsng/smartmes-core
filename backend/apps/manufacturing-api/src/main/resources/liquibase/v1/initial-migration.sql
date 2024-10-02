@@ -1,14 +1,17 @@
 -- Create tables
-CREATE TABLE employees (
+CREATE TABLE IF NOT EXISTS employees (
     id                            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     name                          VARCHAR(128) NOT NULL,
     email                         VARCHAR(64) NOT NULL,
     phone_number                  VARCHAR(32) NOT NULL,
     address                       VARCHAR(255) NOT NULL,
+    specialization                VARCHAR(32),
+    shift                         VARCHAR(32),
+    employee_type                 VARCHAR(64),
     PRIMARY KEY ( id )
 );
 
-CREATE TABLE equipments (
+CREATE TABLE IF NOT EXISTS equipments (
     id                            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     description                   VARCHAR(255) NULL,
     serial_number                 VARCHAR(64) NOT NULL,
@@ -20,7 +23,7 @@ CREATE TABLE equipments (
     PRIMARY KEY ( id )
 );
 
-CREATE TABLE manufacture_orders (
+CREATE TABLE IF NOT EXISTS manufacture_orders (
     id                            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     order_number                  VARCHAR(64) NOT NULL,
     description                   VARCHAR(255) NULL,
@@ -35,7 +38,7 @@ CREATE TABLE manufacture_orders (
     CONSTRAINT fk_manufacture_order_employee_id FOREIGN KEY ( employee_id ) REFERENCES employees ( id )
 );
 
-CREATE TABLE manufacture_order_items (
+CREATE TABLE IF NOT EXISTS manufacture_order_items (
     id                            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     description                   VARCHAR(255) NULL,
     quantity                      INTEGER NOT NULL,
@@ -47,7 +50,7 @@ CREATE TABLE manufacture_order_items (
     CONSTRAINT fk_manufacture_order_item_order_id FOREIGN KEY ( manufacture_order_id ) REFERENCES manufacture_orders ( id )
 );
 
-CREATE TABLE maintenance_orders (
+CREATE TABLE IF NOT EXISTS maintenance_orders (
     id                            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     reason                        VARCHAR(500) NOT NULL,
     created_at                    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -61,7 +64,7 @@ CREATE TABLE maintenance_orders (
     CONSTRAINT fk_maintenance_order_equipment_id FOREIGN KEY ( equipment_id ) REFERENCES equipments ( id )
 );
 
-CREATE TABLE maintenance_order_items (
+CREATE TABLE IF NOT EXISTS maintenance_order_items (
     id                            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     description                   VARCHAR(255) NULL,
     shift                         VARCHAR(64) DEFAULT 'REGULAR',
@@ -81,6 +84,8 @@ VALUES
 (123456, 'Equipamento Teste', 'SN-123456', 'XYZ', 'MACHINE', -29.63935, -50.78878);
 
 INSERT INTO employees
-(id, name, email, phone_number, address)
+(id, name, email, phone_number, address, specialization, employee_type)
 VALUES
-(1, 'John Doe', 'john@doe.com', '999999999', 'Test address');
+(1, 'John Doe', 'john@doe.com', '999999999', 'Test address', 'GENERAL', 'Technician'),
+(2, 'John Mechanic', 'john@mec.com', '999999999', 'Test address', 'MECHANICAL', 'Technician'),
+(3, 'John Electric', 'john@electric.com', '999999999', 'Test address', 'ELECTRICAL', 'Technician');

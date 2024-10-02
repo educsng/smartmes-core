@@ -1,4 +1,4 @@
-package com.smartmes.maintenance.domain;
+package com.smartmes.maintenance.domain.equipment;
 
 import com.smartmes.maintenance.enumeration.EquipmentStatus;
 import jakarta.persistence.Entity;

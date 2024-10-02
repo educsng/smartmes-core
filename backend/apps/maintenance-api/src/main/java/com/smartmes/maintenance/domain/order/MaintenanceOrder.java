@@ -1,5 +1,6 @@
-package com.smartmes.maintenance.domain;
+package com.smartmes.maintenance.domain.order;
 
+import com.smartmes.maintenance.domain.equipment.Equipment;
 import com.smartmes.maintenance.enumeration.MaintenanceOrderType;
 import com.smartmes.maintenance.enumeration.MaintenancePriority;
 import com.smartmes.maintenance.enumeration.OrderStatus;

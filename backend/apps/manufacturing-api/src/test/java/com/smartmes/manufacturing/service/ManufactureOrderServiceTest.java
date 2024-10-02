@@ -1,6 +1,5 @@
 package com.smartmes.manufacturing.service;
 
-import com.smartmes.manufacturing.domain.Employee;
 import com.smartmes.manufacturing.domain.Equipment;
 import com.smartmes.manufacturing.domain.ManufactureOrder;
 import com.smartmes.manufacturing.domain.ManufactureOrderItem;

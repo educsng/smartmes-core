@@ -1,5 +1,6 @@
 package com.smartmes.manufacturing.domain;
 
+import com.smartmes.manufacturing.domain.employee.Operator;
 import com.smartmes.manufacturing.enumeration.OrderStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -61,7 +62,7 @@ public class ManufactureOrder {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
-    private Employee employee;
+    private Operator employee;
 
     @NotNull
     @Builder.Default

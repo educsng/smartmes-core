@@ -1,5 +1,6 @@
-package com.smartmes.maintenance.domain;
+package com.smartmes.maintenance.domain.order;
 
+import com.smartmes.maintenance.domain.employee.Technician;
 import com.smartmes.maintenance.enumeration.ShiftType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -38,7 +39,7 @@ public class MaintenanceOrderItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
-    private Employee employee;
+    private Technician employee;
 
     @NotNull
     @Enumerated(EnumType.STRING)
