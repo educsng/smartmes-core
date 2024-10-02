@@ -8,7 +8,8 @@ import org.springframework.stereotype.Component;
 public class IncidentListener {
 
     @RabbitListener(queues = "${queue.incident.name}")
-    public void handleMaintenanceOrderIncident(@Payload String message) {
-        System.out.println("Incident created, message: " + message);
+    public void handleMaintenanceOrderIncident(@Payload Long orderId) {
+        System.out.println("Incident created, message: " + orderId);
+        // TODO - notify related users and update order status based on events
     }
 }

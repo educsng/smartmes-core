@@ -1,4 +1,4 @@
-package com.smartmes.manufacturing.enumeration;
+package com.smartmes.maintenance.enumeration;
 
 public enum EquipmentStatus {
 

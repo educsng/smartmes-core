@@ -17,6 +17,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -40,6 +43,12 @@ public class MaintenanceOrderItem {
     @NotNull
     @Enumerated(EnumType.STRING)
     private ShiftType shift;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime startedAt;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime finishedAt;
 
     @ManyToOne
     @JoinColumn(name = "maintenance_order_id")

@@ -3,6 +3,7 @@ package com.smartmes.maintenance.service.maintenance;
 import com.smartmes.maintenance.domain.Employee;
 import com.smartmes.maintenance.domain.Equipment;
 import com.smartmes.maintenance.domain.MaintenanceOrder;
+import com.smartmes.maintenance.domain.MaintenanceOrderItem;
 import com.smartmes.maintenance.dto.MaintenanceOrderCreationRequestDto;
 import com.smartmes.maintenance.dto.MaintenanceOrderCreationResponseDto;
 import com.smartmes.maintenance.dto.MaintenanceOrderIncidentRequestDto;
@@ -21,6 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.smartmes.maintenance.enumeration.OrderStatus.FINISHED;
 
@@ -44,18 +46,20 @@ public class MaintenanceOrderServiceImpl implements MaintenanceOrderService {
 
     @Override
     public void createIncident(MaintenanceOrderIncidentRequestDto requestDto) {
+        maintenanceOrderValidator.validateIncidentRequest(requestDto);
         final MaintenanceOrder maintenanceOrder = maintenanceOrderRepository.save(maintenanceOrderMapper.fromMaintenanceOrderIncidentRequestDto(requestDto));
 
         incidentPublisher.sendToQueue(maintenanceOrder.getId());
     }
 
     @Override
-    public void updateMaintenanceOrder(MaintenanceOrderUpdateRequestDto requestDto) {
-        MaintenanceOrder maintenanceOrder = this.mustFindById(requestDto.getOrderId());
+    public void updateMaintenanceOrder(Long orderId, MaintenanceOrderUpdateRequestDto requestDto) {
+        MaintenanceOrder maintenanceOrder = this.mustFindById(orderId);
+        List<MaintenanceOrderItem> orderItems = maintenanceOrderMapper.toMaintenanceOrderItems(requestDto.getItems(), maintenanceOrder);
 
         maintenanceOrder.setFinishedAt(getFinishedAt(maintenanceOrder));
         maintenanceOrder.setOrderStatus(requestDto.getOrderStatus());
-        maintenanceOrder.setUpdatedAt(LocalDateTime.now());
+        maintenanceOrder.setItems(orderItems);
         maintenanceOrderRepository.save(maintenanceOrder);
     }
 
@@ -65,8 +69,7 @@ public class MaintenanceOrderServiceImpl implements MaintenanceOrderService {
         maintenanceOrderValidator.validateCreateMaintenanceOrderRequest(requestDto);
 
         final Equipment equipment = equipmentService.mustFindById(requestDto.getEquipmentId());
-        final Employee employee = employeeService.mustFindById(requestDto.getEmployeeId());
-        MaintenanceOrder maintenanceOrder = maintenanceOrderMapper.toMaintenanceOrder(requestDto, equipment, employee);
+        MaintenanceOrder maintenanceOrder = maintenanceOrderMapper.toMaintenanceOrder(requestDto, equipment);
 
         return maintenanceOrderMapper.toMaintenanceOrderCreationResponseDto(maintenanceOrder);
     }

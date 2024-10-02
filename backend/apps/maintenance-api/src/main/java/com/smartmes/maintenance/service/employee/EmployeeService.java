@@ -1,4 +1,8 @@
 package com.smartmes.maintenance.service.employee;
 
-public class EmployeeService {
+import com.smartmes.maintenance.domain.Employee;
+
+public interface EmployeeService {
+
+    Employee mustFindById(Long employeeId);
 }

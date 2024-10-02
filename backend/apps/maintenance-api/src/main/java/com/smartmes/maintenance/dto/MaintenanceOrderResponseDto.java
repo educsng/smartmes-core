@@ -19,7 +19,6 @@ public class MaintenanceOrderResponseDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
     private String equipment;
-    private String employee;
     private String orderStatus;
     private String type;
 }

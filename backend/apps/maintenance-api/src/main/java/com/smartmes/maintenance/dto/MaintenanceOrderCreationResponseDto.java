@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MaintenanceOrderCreationResponseDto {
+
     private String message;
     private MaintenanceOrderResponseDto manufactureOrder;
 }

@@ -16,5 +16,5 @@ public interface MaintenanceOrderService {
 
     void createIncident(MaintenanceOrderIncidentRequestDto requestDto);
 
-    void updateMaintenanceOrder(MaintenanceOrderUpdateRequestDto requestDto);
+    void updateMaintenanceOrder(Long orderId, MaintenanceOrderUpdateRequestDto requestDto);
 }
