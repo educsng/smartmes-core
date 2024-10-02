@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: initial-migration
+      author: setup-automation
+      runInTransaction: false
+      changes:
+        - sqlFile:
+            encoding: utf8
+            path: ./v1/initial-migration.sql
+            relativeToChangelogFile: true
