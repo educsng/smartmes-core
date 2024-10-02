@@ -1,6 +1,9 @@
 package com.smartmes.maintenance.dto;
 
 import com.smartmes.maintenance.enumeration.MaintenanceOrderType;
+import com.smartmes.maintenance.enumeration.MaintenancePriority;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,18 +16,24 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MaintenanceOrderRequestDto {
-
-    private Long orderId;
+public class MaintenanceOrderCreationRequestDto {
 
     @NotBlank
     @Max(value = 500, message = "O campo reason deve ter no maximo 500 caracteres")
     private String reason;
 
-    @NotNull(message = "O campo equipmentId é obrigatório")
+    @NotNull
     private Long equipmentId;
 
-    @NotNull(message = "O campo type é obrigatório")
+    @NotNull
+    private Long employeeId;
+
+    @NotNull
+    @Enumerated(value = EnumType.STRING)
+    private MaintenancePriority priority;
+
+    @NotNull
+    @Enumerated(value = EnumType.STRING)
     private MaintenanceOrderType type;
 
 }

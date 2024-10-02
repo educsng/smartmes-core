@@ -1,6 +1,9 @@
 package com.smartmes.manufacturing.domain;
 
+import com.smartmes.manufacturing.enumeration.EquipmentStatus;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,4 +40,8 @@ public class Equipment {
     private Double latitude;
 
     private Double longitude;
+
+    @Builder.Default
+    @Enumerated(EnumType.STRING)
+    private EquipmentStatus status = EquipmentStatus.AVAILABLE;
 }
