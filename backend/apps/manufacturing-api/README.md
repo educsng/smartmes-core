@@ -1,5 +1,3 @@
-# Manufacturing :: API
-
 ## Requisitos
 
 - Java 17
@@ -11,6 +9,14 @@ Subir container docker do mysql
 docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=toor -e MYSQL_USER=root -p 3306:3306 mysql:8.0.20 
 ````
 
+Subindo via docker compose
+
+````bash
+docker compose up -d --build
+````
+
+Ambas as aplicações possuem um docker compose para serem executadas individualmente. Para subir todo o APP, é preciso subir o docker compose da pasta raiz do projeto
+
 ## Firebase
 
 É necessário adicionar aos resources do projeto a chave de service-account no formato `.json`.
@@ -19,7 +25,7 @@ A chave fica omitida em função de uma entrada no arquivo .gitignore, uma vez q
 Para isso é preciso ter uma conta no firebase com o módulo de autenticação por email e senha configurado.
 Basta criar uma chave em `Project Settings` > `Service accounts` selecionado o SDK do Java.
 
-Logo, também precisa-se de pelo menos um usuário cadastrado para efetuar o login.
+Logo, também é preciso de pelo menos um usuário cadastrado para efetuar o login.
 
 ## Teste local da API
 
@@ -27,7 +33,7 @@ Para testar a aplicação é necessário ter um token JWT válido cadastrado no 
 
 Recuperando um token (substituir os valores entre chaves)
 ````bash
- curl --location --request POST 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={user-uid}' \
+ curl --location --request POST 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key={apikey}' \
 --header 'content-type: application/json' \
 --data-raw '{
     "email": "{user.email}",
