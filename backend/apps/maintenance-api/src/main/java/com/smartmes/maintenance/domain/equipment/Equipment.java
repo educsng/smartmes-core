@@ -1,6 +1,7 @@
 package com.smartmes.maintenance.domain.equipment;
 
 import com.smartmes.maintenance.enumeration.EquipmentStatus;
+import com.smartmes.maintenance.enumeration.EquipmentType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -9,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -36,8 +38,9 @@ public class Equipment {
     @NotBlank
     private String model;
 
-    @NotBlank
-    private String type;
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private EquipmentType type;
 
     private Double latitude;
 
