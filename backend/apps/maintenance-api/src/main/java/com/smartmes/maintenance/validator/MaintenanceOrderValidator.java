@@ -1,5 +1,6 @@
 package com.smartmes.maintenance.validator;
 
+import com.smartmes.maintenance.domain.equipment.Equipment;
 import com.smartmes.maintenance.domain.order.MaintenanceOrder;
 import com.smartmes.maintenance.dto.MaintenanceOrderCreationRequestDto;
 import com.smartmes.maintenance.dto.MaintenanceOrderIncidentRequestDto;
@@ -45,6 +46,12 @@ public class MaintenanceOrderValidator {
     public void validateOrderStatus(MaintenanceOrder maintenanceOrder) {
         if (FINISHED.equals(maintenanceOrder.getOrderStatus())) {
             throw new RuntimeException("Não é possível editar uma ordem de manutenção finalizada");
+        }
+    }
+
+    public void validateOrderByEquipment(Equipment equipment) {
+        if (maintenanceOrderRepository.existsByEquipmentIdAndOrderStatusIn(equipment.getId(), unfinishedStatuses())) {
+            throw new RuntimeException("O equipamento informado já tem uma manutenção em progresso");
         }
     }
 }

@@ -4,6 +4,7 @@ import com.smartmes.maintenance.domain.equipment.Equipment;
 import com.smartmes.maintenance.enumeration.MaintenanceOrderType;
 import com.smartmes.maintenance.enumeration.MaintenancePriority;
 import com.smartmes.maintenance.enumeration.OrderStatus;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -77,7 +78,7 @@ public class MaintenanceOrder {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus = OrderStatus.CREATED;
 
-    @OneToMany(mappedBy = "maintenanceOrder", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "maintenanceOrder", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<MaintenanceOrderItem> items;
 
 }
