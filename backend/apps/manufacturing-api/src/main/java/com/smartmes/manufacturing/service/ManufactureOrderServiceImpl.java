@@ -12,6 +12,8 @@ import com.smartmes.manufacturing.repository.ManufactureOrderItemRepository;
 import com.smartmes.manufacturing.repository.ManufactureOrderRepository;
 import com.smartmes.manufacturing.validator.ManufactureOrderValidator;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,9 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ManufactureOrderServiceImpl implements ManufactureOrderService {
+
+    private static final String MESSAGE_ORDER_UPDATED = "Ordem atualizada com sucesso!";
+    private static final String MESSAGE_ORDER_CREATED = "Ordem criada com sucesso!";
 
     private final ManufactureOrderRepository manufactureOrderRepository;
     private final ManufactureOrderMapper manufactureOrderMapper;
@@ -42,7 +47,7 @@ public class ManufactureOrderServiceImpl implements ManufactureOrderService {
         if (optionalManufactureOrder.isPresent()) {
             var order = optionalManufactureOrder.get();
             order = this.updateManufactureOrder(order, buildManufactureOrderUpdateRequestDto(order, requestDto));
-            return manufactureOrderMapper.toManufactureOrderResponseDto(order);
+            return manufactureOrderMapper.toManufactureOrderResponseDto(order, MESSAGE_ORDER_UPDATED);
         }
 
         final Equipment equipment = equipmentRepository.findById(requestDto.getEquipmentId())
@@ -52,7 +57,14 @@ public class ManufactureOrderServiceImpl implements ManufactureOrderService {
         savedOrder.getItems().forEach(item -> item.setOrder(savedOrder));
         this.saveManufactureItems(savedOrder);
 
-        return manufactureOrderMapper.toManufactureOrderResponseDto(savedOrder);
+        return manufactureOrderMapper.toManufactureOrderResponseDto(savedOrder, MESSAGE_ORDER_CREATED);
+    }
+
+    @Override
+    public Page<ManufactureOrderResponseDto> getManufactureOrders(PageRequest pageRequest) {
+        Page<ManufactureOrder> manufactureOrders = manufactureOrderRepository.findAll(pageRequest);
+
+        return manufactureOrders.map(order -> manufactureOrderMapper.toManufactureOrderResponseDto(order, null));
     }
 
     @Transactional

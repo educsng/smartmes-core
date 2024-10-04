@@ -1,6 +1,6 @@
 package com.smartmes.manufacturing.domain;
 
-import com.smartmes.manufacturing.domain.employee.Operator;
+import com.smartmes.manufacturing.domain.user.Employee;
 import com.smartmes.manufacturing.enumeration.OrderStatus;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -33,6 +34,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "manufacture_orders")
 public class ManufactureOrder {
 
     @Id
@@ -60,9 +62,9 @@ public class ManufactureOrder {
     @JoinColumn(name = "equipment_id")
     private Equipment equipment;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "employee_id")
-    private Operator employee;
+    private Employee employee;
 
     @NotNull
     @Builder.Default

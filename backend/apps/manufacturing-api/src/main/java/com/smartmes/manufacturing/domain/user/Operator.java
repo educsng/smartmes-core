@@ -1,4 +1,4 @@
-package com.smartmes.manufacturing.domain.employee;
+package com.smartmes.manufacturing.domain.user;
 
 import com.smartmes.manufacturing.enumeration.ShiftType;
 import jakarta.persistence.DiscriminatorValue;
@@ -19,7 +19,7 @@ import lombok.experimental.SuperBuilder;
 public class Operator extends Employee {
 
     @Enumerated(value = EnumType.STRING)
-    private ShiftType shiftType;
+    private ShiftType shift;
 
     public Operator() {
         super();

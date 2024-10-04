@@ -1,4 +1,4 @@
-package com.smartmes.manufacturing.domain.employee;
+package com.smartmes.manufacturing.domain.user;
 
 import com.smartmes.manufacturing.enumeration.TechnicianSpecialization;
 import jakarta.persistence.DiscriminatorValue;

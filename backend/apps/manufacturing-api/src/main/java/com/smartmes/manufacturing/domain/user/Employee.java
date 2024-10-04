@@ -1,4 +1,4 @@
-package com.smartmes.manufacturing.domain.employee;
+package com.smartmes.manufacturing.domain.user;
 
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
@@ -40,5 +40,7 @@ public abstract class Employee {
 
     @NotBlank
     private String address;
+
+    private String oauthId;
 
 }
