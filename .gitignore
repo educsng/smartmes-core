@@ -8,8 +8,13 @@ lerna-debug.log*
 .pnpm-debug.log*
 
 # Intellij
-
 *.idea
+
+# Docker volumes
+data
+konga_data
+pgdata
+posgresdata
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
