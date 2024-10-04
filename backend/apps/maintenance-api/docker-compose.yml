@@ -21,8 +21,8 @@ services:
   app:
     build:
       context: .
-    image: smartmes-manufacturing
-    container_name: smartmes-manufacturing
+    image: smartmes-maintenance
+    container_name: smartmes-maintenance
     networks:
       - smartmes
     environment:
