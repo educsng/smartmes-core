@@ -1,0 +1,35 @@
+networks:
+  smartmes:
+    driver: bridge
+
+services:
+  db:
+    image: mysql:8.0.20
+    container_name: mysql-db
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: toor
+      MYSQL_DATABASE: db_smartmes
+      TZ: America/Belem
+    networks:
+      - smartmes
+    volumes:
+      - "./data:/docker-entrypoint-initdb.d/"
+
+  app:
+    build:
+      context: .
+    image: smartmes-maintenance
+    container_name: smartmes-maintenance
+    networks:
+      - smartmes
+    environment:
+      - JAVA_OPTS=-Dspring.profiles.active=default
+      - DB_HOST=db # caso não subir a aplicação, alterar o host para o IP do container mysql
+    ports:
+      - "8080:8080"
+    privileged: true
+    depends_on:
+      - db
