@@ -24,7 +24,7 @@ E caso seja feita alguma alteração na aplicação, deve-se rodar com a flag `-
 docker compose up -d --build --force-recreate
 ````
 
-Para testar a saúde das aplicações (não necessita autenticação)
+## Para testar a saúde das aplicações (não necessita autenticação)
 
 Manufacture API
 ````bash
