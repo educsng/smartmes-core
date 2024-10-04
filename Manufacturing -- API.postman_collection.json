@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "353bca69-a939-460c-b143-c30d1c8cde98",
+		"name": "Manufacturing :: API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17949816"
+	},
+	"item": [
+		{
+			"name": "MaintenanceOrders",
+			"item": [
+				{
+					"name": "new order",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"orderNumber\": \"123\",\r\n    \"equipmentId\": 123456,\r\n    \"items\": [\r\n        {\r\n            \"description\": \"lote 1\",\r\n            \"unit\": \"PIECE\",\r\n            \"quantity\": 2,\r\n            \"shift\": \"MORNING\"\r\n        },\r\n        {\r\n            \"description\": \"lote 2\",\r\n            \"unit\": \"PIECE\",\r\n            \"quantity\": 5,\r\n            \"shift\": \"MORNING\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/manufacture-api/manufacture-orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"manufacture-api",
+								"manufacture-orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get orders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/manufacture-api/manufacture-orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"manufacture-api",
+								"manufacture-orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "equipments",
+			"item": [
+				{
+					"name": "get equipments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/manufacture-api/equipments",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"manufacture-api",
+								"equipments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "healthcheck",
+			"item": [
+				{
+					"name": "healthcheck",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/manufacture-api/healthcheck",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"manufacture-api",
+								"healthcheck"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{firebase.idToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"try {\r",
+					"    let apikey = pm.globals.get(\"firebase-apikey\");\r",
+					"    let username = pm.globals.get(\"firebase-username\");\r",
+					"    let password = pm.globals.get(\"firebase-password\");\r",
+					"    const response = await pm.sendRequest({\r",
+					"        url: `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${apikey}`,\r",
+					"        method: \"POST\",\r",
+					"        body: {\r",
+					"            mode: 'raw',\r",
+					"            raw: JSON.stringify({ \r",
+					"                \"email\": `${username}`,\r",
+					"                \"password\": `${password}`,\r",
+					"                \"returnSecureToken\": true\r",
+					"            })\r",
+					"        }\r",
+					"    });\r",
+					"\r",
+					"    let jsonResponse = response.json(), idToken = jsonResponse.idToken;\r",
+					"    console.log(`>> Here is my firebase - idToken: ${idToken}`);\r",
+					"\r",
+					"    pm.globals.set('firebase.idToken', idToken);\r",
+					"} catch (err) {\r",
+					"    console.error(err);\r",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
