@@ -2,7 +2,7 @@
 
 ## Requisitos
 
-- docker
+- Docker
 - Firebase Authentication
 
 ## TODO - adicionar requisitos/dependências do front ao readme.md E ao docker compose
@@ -22,4 +22,16 @@ docker compose up -d --force-recreate
 E caso seja feita alguma alteração na aplicação, deve-se rodar com a flag `--build`
 ````bash
 docker compose up -d --build --force-recreate
+````
+
+## Para testar a saúde das aplicações (não necessita autenticação)
+
+Manufacture API
+````bash
+curl http://localhost:8080/manufacture-api/healthcheck
+````
+
+Maintenance API
+````bash
+curl http://localhost:8081/maintenance-api/healthcheck
 ````
