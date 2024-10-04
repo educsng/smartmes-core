@@ -12,8 +12,17 @@ docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=toor -e MYSQL_USER=root -p 330
 Subindo via docker compose
 
 ````bash
-docker compose up -d --build
+docker compose up -d
 ````
+Caso a aplicação não suba corretamente ou acontece alguma falha na conexão com o banco de dados, execute com a flag `--force-recreate`
+````bash
+docker compose up -d --force-recreate
+````
+E caso seja feita alguma alteração na aplicação, deve-se rodar com a flag `--build`
+
+```bash
+docker compose up -d --build --force-recreate
+```
 
 Ambas as aplicações possuem um docker compose para serem executadas individualmente. Para subir todo o APP, é preciso subir o docker compose da pasta raiz do projeto
 
