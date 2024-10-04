@@ -1,10 +1,11 @@
 package com.smartmes.manufacturing.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ManufactureOrderResponseDto {
 
     private String message;
@@ -26,14 +28,13 @@ public class ManufactureOrderResponseDto {
         private Long id;
         private String orderNumber;
         private String description;
-        @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
         private LocalDateTime createdAt;
         private String equipment;
         private String employee;
         private String orderStatus;
         private List<ManufactureOrderItemResponseDto> items;
     }
-
 
     @Data
     @Builder

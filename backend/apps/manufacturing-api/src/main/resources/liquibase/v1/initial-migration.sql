@@ -8,6 +8,7 @@ CREATE TABLE IF NOT EXISTS employees (
     specialization                VARCHAR(32),
     shift                         VARCHAR(32),
     employee_type                 VARCHAR(64),
+    oauth_id                      VARCHAR(64),
     PRIMARY KEY ( id )
 );
 
@@ -76,16 +77,3 @@ CREATE TABLE IF NOT EXISTS maintenance_order_items (
     CONSTRAINT fk_maintenance_order_item_employee_id FOREIGN KEY ( employee_id ) REFERENCES employees ( id ),
     CONSTRAINT fk_maintenance_order_item_order_id FOREIGN KEY ( maintenance_order_id ) REFERENCES maintenance_orders ( id )
 );
-
--- Populate default values
-INSERT INTO equipments
-(id, description, serial_number, model, type, latitude, longitude)
-VALUES
-(123456, 'Equipamento Teste', 'SN-123456', 'XYZ', 'MACHINE', -29.63935, -50.78878);
-
-INSERT INTO employees
-(id, name, email, phone_number, address, specialization, employee_type)
-VALUES
-(1, 'John Doe', 'john@doe.com', '999999999', 'Test address', 'GENERAL', 'Technician'),
-(2, 'John Mechanic', 'john@mec.com', '999999999', 'Test address', 'MECHANICAL', 'Technician'),
-(3, 'John Electric', 'john@electric.com', '999999999', 'Test address', 'ELECTRICAL', 'Technician');

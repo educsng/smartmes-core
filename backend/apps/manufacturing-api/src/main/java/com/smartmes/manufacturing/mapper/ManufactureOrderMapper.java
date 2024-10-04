@@ -3,7 +3,7 @@ package com.smartmes.manufacturing.mapper;
 import com.smartmes.manufacturing.domain.Equipment;
 import com.smartmes.manufacturing.domain.ManufactureOrder;
 import com.smartmes.manufacturing.domain.ManufactureOrderItem;
-import com.smartmes.manufacturing.domain.employee.Operator;
+import com.smartmes.manufacturing.domain.user.Operator;
 import com.smartmes.manufacturing.dto.ManufactureOrderItemRequestDto;
 import com.smartmes.manufacturing.dto.ManufactureOrderRequestDto;
 import com.smartmes.manufacturing.dto.ManufactureOrderResponseDto;
@@ -30,9 +30,9 @@ public class ManufactureOrderMapper {
             .build();
     }
 
-    public ManufactureOrderResponseDto toManufactureOrderResponseDto(ManufactureOrder manufactureOrder) {
+    public ManufactureOrderResponseDto toManufactureOrderResponseDto(ManufactureOrder manufactureOrder, String message) {
         return ManufactureOrderResponseDto.builder()
-            .message("Ordem de produção registrada com sucesso")
+            .message(message)
             .manufactureOrder(getManufactureOrder(manufactureOrder))
             .build();
     }
@@ -63,6 +63,7 @@ public class ManufactureOrderMapper {
             .equipment(manufactureOrder.getEquipment().getSerialNumber())
             .employee(manufactureOrder.getEmployee().getName())
             .orderStatus(manufactureOrder.getOrderStatus().name())
+            .createdAt(manufactureOrder.getCreatedAt())
             .items(getManufactureOrderItems(manufactureOrder))
             .build();
     }

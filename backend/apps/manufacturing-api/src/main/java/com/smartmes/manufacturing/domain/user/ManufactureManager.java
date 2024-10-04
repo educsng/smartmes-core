@@ -1,4 +1,4 @@
-package com.smartmes.manufacturing.domain.employee;
+package com.smartmes.manufacturing.domain.user;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;

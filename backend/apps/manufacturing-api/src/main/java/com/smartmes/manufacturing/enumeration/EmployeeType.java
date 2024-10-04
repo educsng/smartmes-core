@@ -6,6 +6,8 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum EmployeeType {
+
+    ADMIN("Admin"),
     TECHNICIAN("Technician"),
     OPERATOR("Operator"),
     MAINTENANCE_MANAGER("MaintenanceManager"),

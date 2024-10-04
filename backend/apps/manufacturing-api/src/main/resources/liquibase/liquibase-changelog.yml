@@ -8,3 +8,12 @@ databaseChangeLog:
             encoding: utf8
             path: ./v1/initial-migration.sql
             relativeToChangelogFile: true
+  - changeSet:
+      id: initial-load
+      author: setup-automation
+      runInTransaction: false
+      changes:
+        - sqlFile:
+            encoding: utf8
+            path: ./v1/initial-load.sql
+            relativeToChangelogFile: true
