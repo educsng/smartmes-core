@@ -3,8 +3,8 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
 import SelectGroupOne from "@/components/SelectGroup/SelectGroupOne";
 import { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { authenticatedRequest } from "@/utils/axios-util";
 
 const ReportPage = () => {
   const [machine, setMachine] = useState("");
@@ -17,8 +17,8 @@ const ReportPage = () => {
     };
 
     try {
-      await axios.post(
-        `${process.env.API_URL}/api/maintenance-orders/incident`,
+      await authenticatedRequest.post(
+        `/api/maintenance-orders/incident`,
         requestData
       );
 

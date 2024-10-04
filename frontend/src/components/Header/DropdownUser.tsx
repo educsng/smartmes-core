@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import ClickOutside from "@/components/ClickOutside";
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
 const DropdownUser = () => {
@@ -9,8 +8,8 @@ const DropdownUser = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   function handleLogout() {
-    Cookies.remove("token");
-    router.push("/login");
+    localStorage.removeItem("token");
+    router.push("/auth/signin");
   }
 
   return (
@@ -51,10 +50,10 @@ const DropdownUser = () => {
           <div className="flex items-center gap-2.5 px-5 pb-5.5 pt-3.5">
             <span className="block">
               <span className="block font-medium text-dark dark:text-white">
-                Jhon Smith
+                Teste2
               </span>
               <span className="block font-medium text-dark-5 dark:text-dark-6">
-                jonson@nextadmin.com
+                teste2@gmail.com
               </span>
             </span>
           </div>

@@ -29,11 +29,11 @@ const menuGroups = [
         route: "/",
       },
       {
-        label: "Atribuição de Técnico",
-        route: "/",
+        label: "Chamados de Manutenção",
+        route: "/home",
       },
       {
-        label: "Chamados de Manutenção",
+        label: "Criar Chamados de Manutenção",
         route: "/orders",
       },
     ],

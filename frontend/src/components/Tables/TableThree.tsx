@@ -1,8 +1,9 @@
 "use client";
 
-import axios from "axios";
+import { authenticatedRequest } from "@/utils/axios-util";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import SelectGroupOne from "@/components/SelectGroup/SelectGroupOne";
 
 const packageDataMock = [
   {
@@ -39,8 +40,8 @@ const TableThree = () => {
     setLoading(true);
 
     try {
-      const res = await axios.get(
-        `${process.env.API_URL}/api/maintenance-orders`
+      const res = await authenticatedRequest.get(
+        `/maintenance-api/maintenance-orders`
       );
 
       setData(res.data);
@@ -55,6 +56,30 @@ const TableThree = () => {
   useEffect(() => {
     handleRequest();
   }, []);
+
+  const updateStatus = async (status: string, dataRes: any) => {
+    try {
+      await authenticatedRequest.put(
+        `/maintenance-api/maintenance-orders/${dataRes.id}`,
+        {
+          orderStatus: status,
+          items: [
+            {
+              description: "Teste update",
+              employeeId: 1,
+              shift: "MORNING",
+            },
+          ],
+        }
+      );
+
+      toast.success("Status atualizado com sucesso");
+    } catch {
+      toast.error("Erro ao atualizar status");
+    } finally {
+      handleRequest();
+    }
+  };
 
   return loading ? (
     <>loading</>
@@ -82,6 +107,9 @@ const TableThree = () => {
               </th>
               <th className="min-w-[150px] px-4 py-4 font-medium text-dark dark:text-white">
                 Criado em
+              </th>
+              <th className="min-w-[150px] px-4 py-4 font-medium text-dark dark:text-white">
+                Atualizar Status
               </th>
             </tr>
           </thead>
@@ -147,6 +175,31 @@ const TableThree = () => {
                 >
                   <p className="text-dark dark:text-white">
                     {packageItem.createdAt}
+                  </p>
+                </td>
+                <td
+                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
+                    index === packageData.length - 1 ? "border-b-0" : "border-b"
+                  }`}
+                >
+                  <p className="text-dark dark:text-white">
+                    <SelectGroupOne
+                      label="Novo status"
+                      callBackValue={(e) => updateStatus(e, packageItem)}
+                    >
+                      <option value="" disabled className="text-dark-6">
+                        Novo status
+                      </option>
+                      <option value="CREATED" className="text-dark-6">
+                        Criado
+                      </option>
+                      <option value="IN_PROGRESS" className="text-dark-6">
+                        Em progresso
+                      </option>
+                      <option value="FINISHED" className="text-dark-6">
+                        Finalizado
+                      </option>
+                    </SelectGroupOne>
                   </p>
                 </td>
               </tr>

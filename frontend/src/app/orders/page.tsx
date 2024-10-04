@@ -4,8 +4,8 @@ import { useState } from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
 import SelectGroupOne from "@/components/SelectGroup/SelectGroupOne";
-import axios from "axios";
 import { toast } from "react-toastify";
+import { authenticatedRequest } from "@/utils/axios-util";
 
 const OrdersPage = () => {
   const [reason, setReason] = useState("");
@@ -24,10 +24,7 @@ const OrdersPage = () => {
     };
 
     try {
-      await axios.post(
-        `${process.env.API_URL}/api/maintenance-orders`,
-        requestData
-      );
+      await authenticatedRequest.post(`/api/maintenance-orders`, requestData);
 
       toast.success("Sucesso ao reportar problema");
     } catch {

@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import Link from "next/link";
 import axios from "axios";
-import jsCookie from "js-cookie";
 import { useRouter } from "next/navigation";
 
 export default function SigninWithPassword() {
@@ -12,16 +10,17 @@ export default function SigninWithPassword() {
 
   async function handleLoginRequest() {
     try {
-      const payload = {
-        email,
-        password,
-      };
+      const { data } = await axios.post(
+        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAC3qdYSljAQ4J7Sz8ktk_o1Mv42ifNJ0A`,
+        {
+          email: email,
+          password: password,
+          returnSecureToken: true,
+        }
+      );
 
-      const {
-        data: { data: responseData },
-      } = await axios.post(`${process.env.API_URL}/user/login`, payload);
-
-      jsCookie.set("token", responseData.token);
+      localStorage.setItem("token", data.idToken);
+      localStorage.setItem("refreshToken", data.refreshToken);
 
       router.push("/home");
     } catch (err) {
@@ -43,7 +42,7 @@ export default function SigninWithPassword() {
             type="email"
             placeholder="Enter your email"
             name="email"
-            onChange={(v) => setEmail(v)}
+            onChange={(v) => setEmail(v.target.value)}
             className="w-full rounded-lg border border-stroke bg-transparent py-[15px] pl-6 pr-11 font-medium text-dark outline-none focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary"
           />
 
@@ -80,7 +79,7 @@ export default function SigninWithPassword() {
             name="password"
             placeholder="Enter your password"
             autoComplete="password"
-            onChange={(v) => setPassword(v)}
+            onChange={(v) => setPassword(v.target.value)}
             className="w-full rounded-lg border border-stroke bg-transparent py-[15px] pl-6 pr-11 font-medium text-dark outline-none focus:border-primary focus-visible:shadow-none dark:border-dark-3 dark:bg-dark-2 dark:text-white dark:focus:border-primary"
           />
 
@@ -113,7 +112,7 @@ export default function SigninWithPassword() {
       <div className="mb-4.5">
         <button
           onClick={() => handleLoginRequest()}
-          type="submit"
+          type="button"
           className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-primary p-4 font-medium text-white transition hover:bg-opacity-90"
         >
           Sign In
