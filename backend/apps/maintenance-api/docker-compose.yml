@@ -18,6 +18,16 @@ services:
     volumes:
       - "./data:/docker-entrypoint-initdb.d/"
 
+  rabbitmq:
+    image: rabbitmq:3.8-management
+    container_name: rabbitmq-server
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "25672:25672"
+    networks:
+      - smartmes
+
   app:
     build:
       context: .
@@ -27,9 +37,11 @@ services:
       - smartmes
     environment:
       - JAVA_OPTS=-Dspring.profiles.active=default
-      - DB_HOST=db # caso não subir a aplicação, alterar o host para o IP do container mysql
+      - DB_HOST=db
+      - RABBITMQ_HOST=rabbitmq
     ports:
-      - "8080:8080"
+      - "8081:8081"
     privileged: true
     depends_on:
       - db
+      - rabbitmq

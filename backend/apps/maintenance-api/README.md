@@ -18,8 +18,20 @@ docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 -p 25672:25672 rabbitm
 Subindo via docker compose
 
 ````bash
-docker compose up -d --build
+docker compose up -d
 ````
+
+Caso a aplicação não suba corretamente ou acontece alguma falha na conexão com o banco de dados, execute com a flag `--force-recreate`
+````bash
+docker compose up -d --force-recreate
+````
+
+E caso seja feita alguma alteração na aplicação, deve-se rodar com a flag `--build`
+````bash
+docker compose up -d --build --force-recreate
+````
+
+OBS: essa API depende das migrations e carga inicial da Manufacturing API.
 
 Ambas as aplicações possuem um docker compose para serem executadas individualmente. Para subir todo o APP, é preciso subir o docker compose da pasta raiz do projeto
 
