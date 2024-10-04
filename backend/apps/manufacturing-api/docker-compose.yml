@@ -1,5 +1,3 @@
-version: '3.7'
-
 networks:
   smartmes:
     driver: bridge
@@ -22,8 +20,7 @@ services:
 
   app:
     build:
-      context: ../..
-      dockerfile: Dockerfile
+      context: .
     image: smartmes-manufacturing
     container_name: smartmes-manufacturing
     networks:
