@@ -5,10 +5,7 @@ import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
 import SelectGroupOne from "@/components/SelectGroup/SelectGroupOne";
 import { toast } from "react-toastify";
-import {
-  authenticatedRequest,
-  authenticatedRequestManu,
-} from "@/utils/axios-util";
+import { authenticatedRequest } from "@/utils/axios-util";
 
 const OrdersPage = () => {
   const [reason, setReason] = useState("");
@@ -26,9 +23,7 @@ const OrdersPage = () => {
 
   async function getEquipments() {
     try {
-      const res = await authenticatedRequestManu.get(
-        `/manufacture-api/equipments`
-      );
+      const res = await authenticatedRequest.get(`/manufacture-api/equipments`);
 
       setEquipments(res.data.content);
     } catch {
