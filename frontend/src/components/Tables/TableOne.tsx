@@ -32,7 +32,7 @@ const TableOne = () => {
           <div className="px-2 pb-3.5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">id</h5>
           </div>
-          <div className="px-2 pb-3.5 text-center">
+          <div className="px-2 pb-3.5">
             <h5 className="text-sm font-medium uppercase xsm:text-base">
               Nome
             </h5>

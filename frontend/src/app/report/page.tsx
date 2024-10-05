@@ -38,7 +38,7 @@ const ReportPage = () => {
 
     try {
       await authenticatedRequest.post(
-        `/api/maintenance-orders/incident`,
+        `/maintenance-api/maintenance-orders/incident`,
         requestData
       );
 
@@ -94,6 +94,7 @@ const ReportPage = () => {
                   ></textarea>
                 </div>
                 <button
+                  type="button"
                   onClick={() => handleRequest()}
                   className="flex w-full justify-center rounded-[7px] bg-primary p-[13px] font-medium text-white hover:bg-opacity-90"
                 >

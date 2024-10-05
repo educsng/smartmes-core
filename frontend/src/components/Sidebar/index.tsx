@@ -17,8 +17,8 @@ const menuGroups = [
     name: "MENU OPERAÇÃO",
     menuItems: [
       {
-        label: "Ordem de Produção",
-        route: "/",
+        label: "Ordens de Produção",
+        route: "/ordersList",
       },
       {
         label: "Reportar de Problema",
