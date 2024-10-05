@@ -15,6 +15,9 @@ services:
       TZ: America/Belem
     networks:
       - smartmes
+    deploy:
+      restart_policy:
+        condition: on-failure
     volumes:
       - "./data:/docker-entrypoint-initdb.d/"
 
@@ -35,6 +38,9 @@ services:
     container_name: smartmes-maintenance
     networks:
       - smartmes
+    deploy:
+      restart_policy:
+        condition: on-failure
     environment:
       - JAVA_OPTS=-Dspring.profiles.active=default
       - DB_HOST=db
