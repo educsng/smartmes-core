@@ -67,7 +67,6 @@ const OrdersPage = () => {
                 Criar Chamados de Manutenção
               </h3>
             </div>
-            <form action="#">
               <div className="p-6.5">
                 <SelectGroupOne
                   label="Atribuir a um Técnico"
@@ -170,7 +169,6 @@ const OrdersPage = () => {
                   Enviar
                 </button>
               </div>
-            </form>
           </div>
         </div>
       </div>

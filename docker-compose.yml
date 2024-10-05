@@ -120,6 +120,22 @@ services:
     networks:
       - smartmes
 
+  reactApp:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    image: smartmes-frontend
+    container_name: smartmes-frontend
+    restart: on-failure
+    networks:
+      - smartmes
+    environment:
+      API_URL: http://kong-gateway:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - kong
+
   app-manufacturing:
     build:
       context: ./backend/apps/manufacturing-api
