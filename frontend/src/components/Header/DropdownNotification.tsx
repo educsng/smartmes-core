@@ -1,33 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import ClickOutside from "@/components/ClickOutside";
 import Image from "next/image";
 
 const notificationList = [
   {
-    image: "/images/user/user-15.png",
-    title: "Piter Joined the Team!",
-    subTitle: "Congratulate him",
+    title: "Parada de maquina!",
+    subTitle: "Precisa de manutenção...",
   },
   {
-    image: "/images/user/user-02.png",
-    title: "New message received",
-    subTitle: "Devid sent you new message",
-  },
-  {
-    image: "/images/user/user-26.png",
-    title: "New Payment received",
-    subTitle: "Check your earnings",
-  },
-  {
-    image: "/images/user/user-28.png",
-    title: "Jolly completed tasks",
-    subTitle: "Assign her newtasks",
-  },
-  {
-    image: "/images/user/user-27.png",
-    title: "Roman Joined the Team!",
-    subTitle: "Congratulate him",
+    title: "Parada de maquina!",
+    subTitle: "Olá, maquina ta travada aqui...",
   },
 ];
 
@@ -36,7 +19,10 @@ const DropdownNotification = () => {
   const [notifying, setNotifying] = useState(true);
 
   return (
-    <ClickOutside onClick={() => setDropdownOpen(false)} className="relative hidden sm:block">
+    <ClickOutside
+      onClick={() => setDropdownOpen(false)}
+      className="relative hidden sm:block"
+    >
       <li>
         <Link
           onClick={() => {
@@ -79,11 +65,8 @@ const DropdownNotification = () => {
           >
             <div className="mb-5 flex items-center justify-between">
               <h5 className="text-lg font-medium text-dark dark:text-white">
-                Notifications
+                Notificações
               </h5>
-              <span className="rounded-md bg-primary px-2 py-0.5 text-body-xs font-medium text-white">
-                5 new
-              </span>
             </div>
 
             <ul className="no-scrollbar mb-5 flex h-auto flex-col gap-1 overflow-y-auto">
@@ -93,19 +76,6 @@ const DropdownNotification = () => {
                     className="flex items-center gap-4 rounded-[10px] p-2.5 hover:bg-gray-2 dark:hover:bg-dark-3"
                     href="#"
                   >
-                    <span className="block h-14 w-14 rounded-full">
-                      <Image
-                        width={112}
-                        height={112}
-                        src={item.image}
-                        style={{
-                          width: "auto",
-                          height: "auto",
-                        }}
-                        alt="User"
-                      />
-                    </span>
-
                     <span className="block">
                       <span className="block font-medium text-dark dark:text-white">
                         {item.title}
@@ -123,7 +93,7 @@ const DropdownNotification = () => {
               className="flex items-center justify-center rounded-[7px] border border-primary p-2.5 font-medium text-primary hover:bg-blue-light-5 dark:border-dark-4 dark:text-dark-6 dark:hover:border-primary dark:hover:bg-blue-light-3 dark:hover:text-primary"
               href="#"
             >
-              See all notifications
+              Ver todas as notificações
             </Link>
           </div>
         )}

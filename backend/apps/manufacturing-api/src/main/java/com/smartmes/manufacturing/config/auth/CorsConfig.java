@@ -1,4 +1,4 @@
-package com.smartmes.maintenance.config.auth;
+package com.smartmes.manufacturing.config.auth;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

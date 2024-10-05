@@ -1,16 +1,17 @@
+"use client";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
-import TableThree from "@/components/Tables/TableThree";
+import TableTwo from "@/components/Tables/TableTwo";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
 
-const Home = () => {
+const MachinesPage = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Chamados de Manutenção" />
+      <Breadcrumb pageName="Ordens de Produção" />
       <div className="flex flex-col gap-10">
-        <TableThree />
+        <TableTwo />
       </div>
     </DefaultLayout>
   );
 };
 
-export default Home;
+export default MachinesPage;

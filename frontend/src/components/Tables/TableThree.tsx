@@ -33,7 +33,7 @@ const packageDataMock = [
 ];
 
 const TableThree = () => {
-  const [packageData, setData] = useState<any[]>();
+  const [packageData, setData] = useState<any>([]);
   const [loading, setLoading] = useState(false);
 
   async function handleRequest() {
@@ -44,7 +44,7 @@ const TableThree = () => {
         `/maintenance-api/maintenance-orders`
       );
 
-      setData(res.data);
+      setData(res.data.content);
     } catch {
       setData(packageDataMock);
       toast.error("Erro ao buscar dados");
@@ -114,96 +114,113 @@ const TableThree = () => {
             </tr>
           </thead>
           <tbody>
-            {packageData?.map((packageItem, index) => (
-              <tr key={index}>
-                <td
-                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
-                    index === packageData.length - 1 ? "border-b-0" : "border-b"
-                  }`}
-                >
-                  <p className="text-dark dark:text-white">{packageItem.id}</p>
-                </td>
-                <td
-                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
-                    index === packageData.length - 1 ? "border-b-0" : "border-b"
-                  }`}
-                >
-                  <p className="text-dark dark:text-white">
-                    {packageItem.reason}
-                  </p>
-                </td>
-                <td
-                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
-                    index === packageData.length - 1 ? "border-b-0" : "border-b"
-                  }`}
-                >
-                  <p className="text-dark dark:text-white">
-                    {packageItem.type}
-                  </p>
-                </td>
-                <td
-                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
-                    index === packageData.length - 1 ? "border-b-0" : "border-b"
-                  }`}
-                >
-                  <p className="text-dark dark:text-white">
-                    {packageItem.equipment}
-                  </p>
-                </td>
-                <td
-                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
-                    index === packageData.length - 1 ? "border-b-0" : "border-b"
-                  }`}
-                >
-                  <p
-                    className={`inline-flex rounded-full px-3.5 py-1 text-body-sm font-medium ${
-                      packageItem.orderStatus === "FINISHED"
-                        ? "bg-[#219653]/[0.08] text-[#219653]"
-                        : packageItem.orderStatus === "CREATED"
-                        ? "bg-[#D34053]/[0.08] text-[#D34053]"
-                        : "bg-[#FFA70B]/[0.08] text-[#FFA70B]"
+            {packageData.length > 0 &&
+              packageData.map((packageItem, index) => (
+                <tr key={index}>
+                  <td
+                    className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
+                      index === packageData.length - 1
+                        ? "border-b-0"
+                        : "border-b"
                     }`}
                   >
-                    {packageItem.orderStatus}
-                  </p>
-                </td>
-
-                <td
-                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
-                    index === packageData.length - 1 ? "border-b-0" : "border-b"
-                  }`}
-                >
-                  <p className="text-dark dark:text-white">
-                    {packageItem.createdAt}
-                  </p>
-                </td>
-                <td
-                  className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
-                    index === packageData.length - 1 ? "border-b-0" : "border-b"
-                  }`}
-                >
-                  <p className="text-dark dark:text-white">
-                    <SelectGroupOne
-                      label="Novo status"
-                      callBackValue={(e) => updateStatus(e, packageItem)}
+                    <p className="text-dark dark:text-white">
+                      {packageItem.id}
+                    </p>
+                  </td>
+                  <td
+                    className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
+                      index === packageData.length - 1
+                        ? "border-b-0"
+                        : "border-b"
+                    }`}
+                  >
+                    <p className="text-dark dark:text-white">
+                      {packageItem.reason}
+                    </p>
+                  </td>
+                  <td
+                    className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
+                      index === packageData.length - 1
+                        ? "border-b-0"
+                        : "border-b"
+                    }`}
+                  >
+                    <p className="text-dark dark:text-white">
+                      {packageItem.type}
+                    </p>
+                  </td>
+                  <td
+                    className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
+                      index === packageData.length - 1
+                        ? "border-b-0"
+                        : "border-b"
+                    }`}
+                  >
+                    <p className="text-dark dark:text-white">
+                      {packageItem.equipment}
+                    </p>
+                  </td>
+                  <td
+                    className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
+                      index === packageData.length - 1
+                        ? "border-b-0"
+                        : "border-b"
+                    }`}
+                  >
+                    <p
+                      className={`inline-flex rounded-full px-3.5 py-1 text-body-sm font-medium ${
+                        packageItem.orderStatus === "FINISHED"
+                          ? "bg-[#219653]/[0.08] text-[#219653]"
+                          : packageItem.orderStatus === "CREATED"
+                          ? "bg-[#D34053]/[0.08] text-[#D34053]"
+                          : "bg-[#FFA70B]/[0.08] text-[#FFA70B]"
+                      }`}
                     >
-                      <option value="" disabled className="text-dark-6">
-                        Novo status
-                      </option>
-                      <option value="CREATED" className="text-dark-6">
-                        Criado
-                      </option>
-                      <option value="IN_PROGRESS" className="text-dark-6">
-                        Em progresso
-                      </option>
-                      <option value="FINISHED" className="text-dark-6">
-                        Finalizado
-                      </option>
-                    </SelectGroupOne>
-                  </p>
-                </td>
-              </tr>
-            ))}
+                      {packageItem.orderStatus}
+                    </p>
+                  </td>
+
+                  <td
+                    className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
+                      index === packageData.length - 1
+                        ? "border-b-0"
+                        : "border-b"
+                    }`}
+                  >
+                    <p className="text-dark dark:text-white">
+                      {packageItem.createdAt}
+                    </p>
+                  </td>
+                  <td
+                    className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
+                      index === packageData.length - 1
+                        ? "border-b-0"
+                        : "border-b"
+                    }`}
+                  >
+                    <p className="text-dark dark:text-white">
+                      {packageItem.orderStatus !== "FINISHED" && (
+                        <SelectGroupOne
+                          label="Novo status"
+                          callBackValue={(e) => updateStatus(e, packageItem)}
+                        >
+                          <option value="" disabled className="text-dark-6">
+                            Novo status
+                          </option>
+
+                          <option value="IN_PROGRESS" className="text-dark-6">
+                            Em progresso
+                          </option>
+                          <option value="FINISHED" className="text-dark-6">
+                            Finalizado
+                          </option>
+                        </SelectGroupOne>
+                      )}
+                    </p>
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

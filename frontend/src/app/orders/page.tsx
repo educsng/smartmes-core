@@ -1,18 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
 import SelectGroupOne from "@/components/SelectGroup/SelectGroupOne";
 import { toast } from "react-toastify";
-import { authenticatedRequest } from "@/utils/axios-util";
+import {
+  authenticatedRequest,
+  authenticatedRequestManu,
+} from "@/utils/axios-util";
 
 const OrdersPage = () => {
   const [reason, setReason] = useState("");
   const [equipmentId, setEquipmentId] = useState(0);
+  const [equipments, setEquipments] = useState([]);
   const [priority, setPriority] = useState("");
   const [type, setType] = useState("");
   const [technician, setTechnician] = useState("");
+
+  useEffect(() => {
+    getEquipments();
+  }, []);
+
+  async function getEquipments() {
+    try {
+      const res = await authenticatedRequestManu.get(
+        `/manufacture-api/equipments`
+      );
+
+      setEquipments(res.data.content);
+    } catch {
+      toast.error("Erro ao buscar equipamentos");
+    }
+  }
 
   async function handleRequest() {
     const requestData = {
@@ -20,11 +40,13 @@ const OrdersPage = () => {
       equipmentId,
       priority,
       type,
-      technician,
     };
 
     try {
-      await authenticatedRequest.post(`/api/maintenance-orders`, requestData);
+      await authenticatedRequest.post(
+        `/maintenance-api/maintenance-orders`,
+        requestData
+      );
 
       toast.success("Sucesso ao reportar problema");
     } catch {
@@ -75,21 +97,17 @@ const OrdersPage = () => {
                   <option value="" disabled className="text-dark-6">
                     Escolha o equipamento
                   </option>
-                  <option value="101" className="text-dark-6">
-                    Máquina de Corte CNC
-                  </option>
-                  <option value="102" className="text-dark-6">
-                    Prensa Hidráulica
-                  </option>
-                  <option value="103" className="text-dark-6">
-                    Esteira Transportadora
-                  </option>
-                  <option value="104" className="text-dark-6">
-                    Robô de Solda
-                  </option>
-                  <option value="105" className="text-dark-6">
-                    Máquina de Embalagem
-                  </option>
+
+                  {equipments.length > 0 &&
+                    equipments.map((equipment: any) => (
+                      <option
+                        key={`equipment${equipment.id}`}
+                        value={equipment.id}
+                        className="text-dark-6"
+                      >
+                        {equipment.name}
+                      </option>
+                    ))}
                 </SelectGroupOne>
 
                 <SelectGroupOne
@@ -99,19 +117,19 @@ const OrdersPage = () => {
                   <option value="" disabled className="text-dark-6">
                     Escolha o tipo de manutenção
                   </option>
-                  <option value="production" className="text-dark-6">
+                  <option value="PRODUCTION" className="text-dark-6">
                     PRODUÇÃO
                   </option>
-                  <option value="inspection" className="text-dark-6">
+                  <option value="INSPECTION" className="text-dark-6">
                     INSPEÇÃO
                   </option>
-                  <option value="preventive" className="text-dark-6">
+                  <option value="PREVENTIVE" className="text-dark-6">
                     PREVENTIVO
                   </option>
-                  <option value="predictive" className="text-dark-6">
+                  <option value="PREDICTIVE" className="text-dark-6">
                     PREDITIVO
                   </option>
-                  <option value="incident" className="text-dark-6">
+                  <option value="INCIDENT" className="text-dark-6">
                     INCIDENTE
                   </option>
                 </SelectGroupOne>
@@ -123,13 +141,13 @@ const OrdersPage = () => {
                   <option value="" disabled className="text-dark-6">
                     Escolha o tipo de Prioridade
                   </option>
-                  <option value="low" className="text-dark-6">
+                  <option value="LOW" className="text-dark-6">
                     BAIXA
                   </option>
-                  <option value="medium" className="text-dark-6">
+                  <option value="MEDIUM" className="text-dark-6">
                     MEDIA
                   </option>
-                  <option value="high" className="text-dark-6">
+                  <option value="HIGH" className="text-dark-6">
                     ALTA
                   </option>
                 </SelectGroupOne>
