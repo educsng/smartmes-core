@@ -2,13 +2,33 @@
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import DefaultLayout from "@/components/Layouts/DefaultLaout";
 import SelectGroupOne from "@/components/SelectGroup/SelectGroupOne";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { authenticatedRequest } from "@/utils/axios-util";
+import {
+  authenticatedRequest,
+  authenticatedRequestManu,
+} from "@/utils/axios-util";
 
 const ReportPage = () => {
-  const [machine, setMachine] = useState("");
+  const [machine, setMachine] = useState(0);
   const [resume, setResume] = useState("");
+  const [equipments, setEquipments] = useState([]);
+
+  useEffect(() => {
+    getEquipments();
+  }, []);
+
+  async function getEquipments() {
+    try {
+      const res = await authenticatedRequestManu.get(
+        `/manufacture-api/equipments`
+      );
+
+      setEquipments(res.data.content);
+    } catch {
+      toast.error("Erro ao buscar equipamentos");
+    }
+  }
 
   async function handleRequest() {
     const requestData = {
@@ -43,21 +63,23 @@ const ReportPage = () => {
             <form action="#">
               <div className="p-6.5">
                 <SelectGroupOne
-                  label="Maquina"
-                  callBackValue={(e) => setMachine(e)}
+                  label="Equipamento"
+                  callBackValue={(e) => setMachine(Number(e))}
                 >
                   <option value="" disabled className="text-dark-6">
-                    Escolha a maquina
+                    Escolha o equipamento
                   </option>
-                  <option value="production" className="text-dark-6">
-                    Maquina 1
-                  </option>
-                  <option value="inspection" className="text-dark-6">
-                    Maquina 2
-                  </option>
-                  <option value="preventive" className="text-dark-6">
-                    Maquina 3
-                  </option>
+
+                  {equipments.length > 0 &&
+                    equipments.map((equipment: any) => (
+                      <option
+                        key={`equipment${equipment.id}`}
+                        value={equipment.id}
+                        className="text-dark-6"
+                      >
+                        {equipment.name}
+                      </option>
+                    ))}
                 </SelectGroupOne>
 
                 <div className="mb-6">

@@ -14,10 +14,10 @@ interface SidebarProps {
 
 const menuGroups = [
   {
-    name: "MENU",
+    name: "MENU OPERAÇÃO",
     menuItems: [
       {
-        label: "Dashboard de Manutenções",
+        label: "Ordem de Produção",
         route: "/",
       },
       {
@@ -26,8 +26,13 @@ const menuGroups = [
       },
       {
         label: "Listagem de Máquinas",
-        route: "/",
+        route: "/machines",
       },
+    ],
+  },
+  {
+    name: "MENU MANUTENÇÃO",
+    menuItems: [
       {
         label: "Chamados de Manutenção",
         route: "/home",
@@ -35,6 +40,10 @@ const menuGroups = [
       {
         label: "Criar Chamados de Manutenção",
         route: "/orders",
+      },
+      {
+        label: "Listagem de Máquinas",
+        route: "/machines",
       },
     ],
   },
