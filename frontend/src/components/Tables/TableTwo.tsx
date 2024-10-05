@@ -1,4 +1,4 @@
-import { authenticatedRequestManu } from "@/utils/axios-util";
+import { authenticatedRequest } from "@/utils/axios-util";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -11,7 +11,7 @@ const TableTwo = () => {
 
   async function getOrders() {
     try {
-      const res = await authenticatedRequestManu.get(
+      const res = await authenticatedRequest.get(
         `/manufacture-api/manufacture-orders`
       );
 

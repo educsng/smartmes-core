@@ -1,4 +1,4 @@
-import { authenticatedRequestManu } from "@/utils/axios-util";
+import { authenticatedRequest } from "@/utils/axios-util";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -11,9 +11,7 @@ const TableOne = () => {
 
   async function getEquipments() {
     try {
-      const res = await authenticatedRequestManu.get(
-        `/manufacture-api/equipments`
-      );
+      const res = await authenticatedRequest.get(`/manufacture-api/equipments`);
 
       setEquipments(res.data.content);
     } catch {
