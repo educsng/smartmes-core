@@ -10,7 +10,7 @@ import { authenticatedRequest } from "@/utils/axios-util";
 const OrdersPage = () => {
   const [reason, setReason] = useState("");
   const [equipmentId, setEquipmentId] = useState(0);
-  const [technicianId, setTechnicianId] = useState(0);
+  const [technicianId, setTechnicianId] = useState("");
   const [equipments, setEquipments] = useState([]);
   const [priority, setPriority] = useState("");
   const [type, setType] = useState("");
@@ -81,7 +81,7 @@ const OrdersPage = () => {
             <div className="p-6.5">
               <SelectGroupOne
                 label="Atribuir a um Técnico"
-                callBackValue={(e) => setTechnicianId(e)}
+                callBackValue={(e: string) => setTechnicianId(e)}
               >
                 <option value="" disabled className="text-dark-6">
                   Escolha um técnico

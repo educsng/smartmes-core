@@ -17,7 +17,7 @@ const SelectGroupOne = ({
     setIsOptionSelected(true);
   };
 
-  const selectedOptionValue = (e) => {
+  const selectedOptionValue = (e: any) => {
     setSelectedOption(e.target.value);
     changeTextColor();
     callBackValue(e.target.value);
@@ -32,7 +32,7 @@ const SelectGroupOne = ({
       <div className="relative z-20 bg-transparent dark:bg-dark-2">
         <select
           value={selectedOption}
-          onChange={(e) => selectedOptionValue(e)}
+          onChange={(e: any) => selectedOptionValue(e)}
           className={`relative z-20 w-full appearance-none rounded-[7px] border border-stroke bg-transparent px-5.5 py-3 outline-none transition focus:border-primary active:border-primary dark:border-dark-3 dark:bg-dark-2 dark:focus:border-primary ${
             isOptionSelected ? "text-dark dark:text-white" : ""
           }`}

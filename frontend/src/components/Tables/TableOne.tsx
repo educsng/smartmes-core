@@ -37,7 +37,7 @@ const TableOne = () => {
           </div>
         </div>
 
-        {equipments.map((equipment, key) => (
+        {equipments.map((equipment: any, key: any) => (
           <div
             className={`grid grid-cols-3 sm:grid-cols-5 ${
               key === equipments.length - 1

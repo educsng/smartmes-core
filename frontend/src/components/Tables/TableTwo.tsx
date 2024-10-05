@@ -47,7 +47,7 @@ const TableTwo = () => {
           </div>
         </div>
 
-        {orders.map(({ manufactureOrder: order }: any, key) => (
+        {orders.map(({ manufactureOrder: order }: any, key: any) => (
           <div
             className={`grid grid-cols-3 sm:grid-cols-3 ${
               key === orders.length - 1

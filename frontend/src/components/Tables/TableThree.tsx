@@ -115,7 +115,7 @@ const TableThree = () => {
           </thead>
           <tbody>
             {packageData.length > 0 &&
-              packageData.map((packageItem, index) => (
+              packageData.map((packageItem: any, index: number) => (
                 <tr key={index}>
                   <td
                     className={`border-[#eee] px-4 py-4 dark:border-dark-3 ${
