@@ -33,7 +33,7 @@ public class MaintenanceOrderController {
     @ResponseStatus(HttpStatus.OK)
     public Page<MaintenanceOrderResponseDto> getOrders(
         @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size
+        @RequestParam(defaultValue = "50") int size
     ) {
         var sort = Sort.by(Sort.Direction.ASC, "createdAt");
         return maintenanceOrderService.getOrders(PageRequest.of(page, size, sort));

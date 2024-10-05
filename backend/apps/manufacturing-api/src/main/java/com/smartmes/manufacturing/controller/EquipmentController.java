@@ -21,7 +21,7 @@ public class EquipmentController {
     @GetMapping
     public Page<EquipmentResponseDto> getEquipments(
         @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size
+        @RequestParam(defaultValue = "50") int size
     ) {
         var sort = Sort.by(Sort.Direction.ASC, "id");
         return equipmentService.getEquipments(PageRequest.of(page, size, sort));

@@ -30,7 +30,7 @@ public class ManufactureController {
     @GetMapping
     public Page<ManufactureOrderResponseDto> getManufactureOrders(
         @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "10") int size
+        @RequestParam(defaultValue = "50") int size
     ) {
         var sort = Sort.by(Sort.Direction.ASC, "createdAt");
         return manufactureOrderService.getManufactureOrders(PageRequest.of(page, size, sort));
