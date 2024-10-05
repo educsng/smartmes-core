@@ -11,7 +11,7 @@ lerna-debug.log*
 *.idea
 
 # Docker volumes
-data
+mysql_data
 konga_data
 pgdata
 posgresdata
